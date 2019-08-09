@@ -59,20 +59,43 @@ if __name__ == "__main__":
                             pass
 
             if x is '2':
-                print("\n开始爬取驴妈妈")
-                s = lvmama.LvmamaScraper(pages)
-                try:
-                    s.scrappy(placename)
-                # scrape again if exception happens
-                except Exception:
+                db = pymysql.connect("localhost", "root", "00000000", "scrapy")
+                cursor = db.cursor()
+                sql = "SELECT COUNT(1) FROM scrapy_info WHERE sight_name = '" + placename + "' AND site_name = '驴妈妈'"
+                cursor.execute(sql)
+                has_sight = cursor.fetchone()[0]
+
+                # scrapy_detail已经有携程的这个景点了,直接从里面取
+                if has_sight >= 1:
+                    star_seg = []
+                    review_seg = []
+
+                    sql = "SELECT star_levels, comments FROM scrapy_detail"
+                    cursor.execute(sql)
+                    res = cursor.fetchall()
+                    for n in range(len(res)):
+                        star_seg.append(res[n][0])
+                        review_seg.append(res[n][1])
+
+                    cursor.close()
+                    db.close()
+
+                # scrapy_detail没有携程的这个景点
+                elif has_sight == 0:
+                    print("\n开始爬取驴妈妈")
+                    s = lvmama.LvmamaScraper(pages, placename)
                     try:
                         s.scrappy(placename)
+                    # scrape again if exception happens
                     except Exception:
-                        pass
+                        try:
+                            s.scrappy(placename)
+                        except Exception:
+                            pass
 
             if x is '3':
                 print("\n开始爬取马蜂窝")
-                s = mafengwo.MafengwoScraper(pages)
+                s = mafengwo.MafengwoScraper(pages, placename)
                 try:
                     s.scrappy(placename)
                 # scrape again if exception happens
@@ -91,8 +114,8 @@ if __name__ == "__main__":
                     pass
 
             if x is '5':
-                print("\n开始爬取同城")
-                s = tongcheng.TongchengScraper(pages)
+                print("\n开始爬取同程")
+                s = tongcheng.TongchengScraper(pages, placename)
                 try:
                     s.scrappy(placename)
                 # scrape again if exception happens
@@ -104,7 +127,7 @@ if __name__ == "__main__":
 
             if x is '6':
                 print("\n开始爬取途牛")
-                s = tuniu.TuniuScraper(pages)
+                s = tuniu.TuniuScraper(pages, placename)
                 try:
                     s.scrappy(placename)
                 # scrape again if exception happens

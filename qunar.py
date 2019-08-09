@@ -36,7 +36,7 @@ class QunarScraper():
                 self.comments.append(comment.replace('&quot', ''))
 
                 star_level = l['score']
-                self.star_levels.append(star_level)
+                self.star_levels.append(str(star_level))
 
         except Exception as err:
             print(err.with_traceback())
@@ -130,6 +130,8 @@ class QunarScraper():
         for x in range(0, len(self.comments)):
             self.detail_id.append(str(uuid.uuid4()))
             self.info_id.append(id_scrapy_info)
+
+        db.scrapy_detail(self.detail_id, self.star_levels, self.comments, self.info_id)
 
     def save_to_csv(self):
         for x in range(0, len(self.comments)):

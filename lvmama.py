@@ -57,7 +57,7 @@ class LvmamaScraper():
                 # print(y)
                 y = t.find('span', class_='ufeed-level')
                 y = y.find('i')["data-level"]
-                self.star_levels.append(y)
+                self.star_levels.append(str(y))
                 # print(y)
 
             # page scrapped successfully, remove from page_indices

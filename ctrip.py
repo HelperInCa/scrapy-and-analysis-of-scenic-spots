@@ -49,7 +49,7 @@ class CtripScraper():
                 stars = para.find('span', class_='starlist')
                 stars = stars.find('span')['style']
                 stars = re.sub('[%,;]', '', stars) # remove last two chars
-                s = int(int(stars[6:])/20)
+                s = str(int(int(stars[6:])/20))
 
                 self.star_levels.append(s)
 

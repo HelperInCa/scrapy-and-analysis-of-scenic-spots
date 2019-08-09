@@ -107,11 +107,13 @@ class TongchengScraper():
 
     def save_to_database(self):
         id_scrapy_info = str(uuid.uuid4())
-        db.scrapy_info(id_scrapy_info, self.placename, "同城")
+        db.scrapy_info(id_scrapy_info, self.placename, "同程")
 
         for x in range(0, len(self.comments)):
             self.detail_id.append(str(uuid.uuid4()))
             self.info_id.append(id_scrapy_info)
+
+        db.scrapy_detail(self.detail_id, self.star_levels, self.comments, self.info_id)
 
     def save_to_csv(self):
         # 创建DataFrame并保存到csv文件
@@ -119,7 +121,7 @@ class TongchengScraper():
                                        'comments': self.comments,
                                        'star_level' : self.star_levels})
 
-        comments_table.to_csv("data/tc-" + self.placename + ".csv", index=False)
+        comments_table.to_csv("tc-" + self.placename + ".csv", index=False)
 
         print('done scrapping ' + self.placename + ' from tongcheng')
 

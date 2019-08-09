@@ -55,11 +55,12 @@ def segmentation_insert(res_tuple):
     sql = "insert into segmentation(word, word_character, id_scrapy_detail) values "
     for i in range(0, len(res_tuple)):
         # ('word', 'word_character', 'id_scrapy_detail'),
-        sql += "('" + res_tuple[i][1] + "', '" + res_tuple[i][2] + "', '" + res_tuple[i][0] + "'),"
+        sql += "('" + res_tuple[i][0] + "', '" + res_tuple[i][1] + "', '" + res_tuple[i][2] + "'),"
     sql = sql[:-1] + ";"
     try:
         cursor.execute(sql)
         db.commit()
+
     except Exception as err:
         db.rollback()
         print(err)
@@ -73,7 +74,7 @@ def frequency_insert(res_freq):
     sql = "insert into word_frequency(word, frequency, scrapy_detail_id) values "
     for i in range(0, len(res_freq)):
         # ('word', freq, 'scrapy_detail_id'),
-        sql += "('" + res_freq[i][0] + "', " + res_freq[i][1] + ", '" + res_freq[i][2] + "'),"
+        sql += "('" + res_freq[i][0] + "', '" + str(res_freq[i][1]) + "', '" + res_freq[i][2] + "'),"
     sql = sql[:-1] + ";"
     try:
         cursor.execute(sql)
@@ -88,14 +89,16 @@ def frequency_insert(res_freq):
 def opinion_insert(reponse):
     db = pymysql.connect("localhost", "root", "00000000", "scrapy")
     cursor = db.cursor()
-    sql = "insert into scrapy_detail(label, positive, medium, negative) values "
+    sql = "insert into opinion(id_detail, label, negative, medium, positive) values "
     for i in range(0, len(reponse)):
-        # (label, positive, medium, negative),
-        sql += "(" + reponse[i][0] + ", " + reponse[i][1] + ", " + reponse[i][2] + ", " + reponse[i][3] + "),"
+        # (id_detail, label, negative, medium, positive),
+        sql += "('" + str(reponse[i][0]) + "', '" + str(reponse[i][1]) + "', '" + str(reponse[i][2]) + "', '" + str(reponse[i][3]) + "', '" + str(reponse[i][4]) + "'),"
     sql = sql[:-1] + ";"
     try:
         cursor.execute(sql)
         db.commit()
+
+        print("opinion db inserted!")
     except Exception as err:
         db.rollback()
         print(err)
