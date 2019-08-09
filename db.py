@@ -92,7 +92,8 @@ def opinion_insert(reponse):
     sql = "insert into opinion(id_detail, label, negative, medium, positive) values "
     for i in range(0, len(reponse)):
         # (id_detail, label, negative, medium, positive),
-        sql += "('" + str(reponse[i][0]) + "', '" + str(reponse[i][1]) + "', '" + str(reponse[i][2]) + "', '" + str(reponse[i][3]) + "', '" + str(reponse[i][4]) + "'),"
+        sql += "('" + str(reponse[i][0]) + "', '" + str(reponse[i][1]) + "', '" + str(reponse[i][2]) + "', '" + str(
+            reponse[i][3]) + "', '" + str(reponse[i][4]) + "'),"
     sql = sql[:-1] + ";"
     try:
         cursor.execute(sql)
