@@ -13,7 +13,6 @@ class SenAnaly():
         self.logId = logId
         self.comments = {}
         self.result = []  # [[dada-3fd, 0, 0.3, 0.6, 0.1], [...], ...]
-        self.id_details = []
 
     # reads comments from database into a list
     def read_comments_from_database(self):
@@ -50,27 +49,6 @@ class SenAnaly():
         return response
 
     def analyse(self):
-        # id_comments = db.segmentation_fetch()
-        #
-        # for id_comment in id_comments:
-        #     comment = id_comment[1]
-        #     self.comments.append(comment)
-        #
-        #     id_detail = id_comment[0]
-        #     self.id_details.append(id_detail)
-        #
-        # for i in range(len(id_comments)):
-        #     response = self.make_request(self.comments[i])
-        #     label = response['items'][0]['label']
-        #     prob_neg = response['items'][0]['prob'][0]
-        #     prob_neu = response['items'][0]['prob'][1]
-        #     prob_pos = response['items'][0]['prob'][2]
-        #
-        #     single_comment_result = [self.id_details[i], label, prob_neg, prob_neu, prob_pos]
-        #     self.result.append(single_comment_result)
-        #
-        # print(self.result)
-        # db.opinion_insert(self.result)
 
         id_comments = db.segmentation_fetch()
 
