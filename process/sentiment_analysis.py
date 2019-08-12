@@ -50,7 +50,7 @@ class SenAnaly():
 
     def analyse(self):
 
-        id_comments = db.segmentation_fetch()
+        id_comments = db.fetch_detailid_comment()
 
         for id_comment in id_comments:
             comment = id_comment[1]

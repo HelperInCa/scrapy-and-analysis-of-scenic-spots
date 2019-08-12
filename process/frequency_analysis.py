@@ -30,7 +30,7 @@ class FreqAnaly:
 
     # read comments from the database into a list
     def read_from_database(self):
-        self.id_comments = db.segmentation_fetch()  # raw_tuple: (('id', 'comment'), (), ())
+        self.id_comments = db.fetch_detailid_comment()  # raw_tuple: (('id', 'comment'), (), ())
         # raw_tuple = db.segmentaton_fetch() # raw_tuple: (('id', 'comment'), (), ())
         #         # comments = []
         #         # ids = []
@@ -49,7 +49,7 @@ class FreqAnaly:
 
     # split and cut each comment from the comments
     def tagging(self):
-        self.id_comments = db.segmentation_fetch()
+        self.id_comments = db.fetch_infoid_comment()
         # self.read_from_database()
         # filters out stopwords
         thu = thulac.thulac(filt=True)
