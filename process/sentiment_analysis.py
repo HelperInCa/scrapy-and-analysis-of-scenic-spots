@@ -29,7 +29,7 @@ class SenAnaly():
 
     # make request and get response for a single comment
     def make_request(self, text):
-        url = "http://10.154.9.14:20003//nlp-service/sentiment/wb"
+        url = "http://xxx:xxx/nlp-service/sentiment/wb"
         json_data = {
             "requestId": self.requestId,
             "items": [
